@@ -6,25 +6,30 @@ class PhotosController < ApplicationController
   # GET /photos or /photos.json
   def index
     @photos = Photo.all
+    authorize @photos
   end
 
   # GET /photos/1 or /photos/1.json
   def show
+    authorize @photo
   end
 
   # GET /photos/new
   def new
     @photo = Photo.new
+    authorize @photo
   end
 
   # GET /photos/1/edit
   def edit
+    authorize @photo
   end
 
   # POST /photos or /photos.json
   def create
     @photo = Photo.new(photo_params)
     @photo.owner = current_user
+    authorize @photo
 
     respond_to do |format|
       if @photo.save
@@ -39,6 +44,7 @@ class PhotosController < ApplicationController
 
   # PATCH/PUT /photos/1 or /photos/1.json
   def update
+    authorize @photo
     respond_to do |format|
       if @photo.update(photo_params)
         format.html { redirect_to @photo, notice: "Photo was successfully updated." }
@@ -54,6 +60,7 @@ class PhotosController < ApplicationController
   
 
   def destroy
+    authorize @photo
     @photo.destroy
 
     respond_to do |format|

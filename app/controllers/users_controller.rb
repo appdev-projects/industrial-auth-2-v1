@@ -7,6 +7,10 @@ class UsersController < ApplicationController
     authorize @user
   end
 
+  def show
+    authorize @user
+  end
+
   private
 
     def set_user

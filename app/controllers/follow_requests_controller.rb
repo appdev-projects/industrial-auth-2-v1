@@ -23,6 +23,7 @@ class FollowRequestsController < ApplicationController
   def create
     @follow_request = FollowRequest.new(follow_request_params)
     @follow_request.sender = current_user
+    authorize @follow_request
 
     respond_to do |format|
       if @follow_request.save

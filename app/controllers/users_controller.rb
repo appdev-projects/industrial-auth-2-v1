@@ -11,6 +11,19 @@ class UsersController < ApplicationController
     authorize @user
   end
 
+  def discover
+    authorize @user
+  end
+
+  def sign_in
+    skip_after_action :verify_authorized
+    authorize @user
+  end
+
+  def liked
+    authorize @user
+  end
+
   private
 
     def set_user

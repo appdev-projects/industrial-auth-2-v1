@@ -6,4 +6,8 @@ class FollowRequestPolicy < ApplicationPolicy
   def show?
     true
   end
+
+  def destroy?
+    record.sender_id == user.id
+  end
 end

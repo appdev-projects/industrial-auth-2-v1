@@ -18,4 +18,4 @@ class UsersController < ApplicationController
         redirect_back fallback_location: root_url, alert: "You're not authorized for that."
       end
     end
-end
+  end

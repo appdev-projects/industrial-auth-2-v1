@@ -31,4 +31,7 @@ class Photo < ApplicationRecord
   validates :caption, presence: true
 
   validates :image, presence: true
+
+  default_scope { order(created_at: :desc) }
+
 end

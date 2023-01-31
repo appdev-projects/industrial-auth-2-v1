@@ -6,11 +6,16 @@ class LikePolicy < ApplicationPolicy
     @like = like
   end
 
-  # to review
-  def show?
+  def create?
     user == like.owner ||
       !like.owner.private? ||
       like.owner.followers.include?(user)
+  end
+
+
+  def destroy?
+    user == like.owner ||
+      user == like.fan
   end
 
 end

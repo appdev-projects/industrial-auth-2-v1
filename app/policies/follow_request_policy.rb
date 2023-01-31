@@ -6,14 +6,20 @@ class FollowRequestPolicy < ApplicationPolicy
     @follow_request = follow_request
   end
 
-  # to review
-  def show?
-    user == follow_request.owner ||
-      !follow_request.owner.private? ||
-      follow_request.owner.followers.include?(user)
+  # Only recipient can edit and update
+  def edit?
+    user == follow_request.recipient
   end
 
-  # before_action :ensure_current_user_is_owner, only: [:destroy, :edit, :update]
-  # if current_user != @follow_request.sender && current_user != @follow_request.recipient
+  def update?
+    user == follow_request.recipient
+  end
+
+  # The sender and recipient can destroy
+  def destroy?
+    user == follow_request.sender ||
+      user == follow_request.recipient
+  end
+
 
 end

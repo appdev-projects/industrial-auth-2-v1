@@ -2,7 +2,6 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: %i[ show edit update destroy ]
 
   #before_action :ensure_current_user_is_owner, only: [:destroy, :update, :edit]
-  skip_before_action :verify_authorized, except: [:destroy, :edit, :update, :create]
 
   # GET /comments or /comments.json
   def index
@@ -25,9 +24,9 @@ class CommentsController < ApplicationController
 
   # POST /comments or /comments.json
   def create
-    authorize @comment
-
     @comment = Comment.new(comment_params)
+
+    authorize @comment
     @comment.author = current_user
 
     respond_to do |format|

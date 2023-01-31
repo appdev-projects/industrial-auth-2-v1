@@ -9,7 +9,7 @@ class UserPolicy < ApplicationPolicy
   # Our policy is that a photo should only be seen by the owner or followers
   #   of the owner, unless the owner is not private in which case anyone can
   #   see it
-  def show?
+  def profile?
     user == current_user ||
       !user.private? ||
       user.followers.include?(current_user) 
@@ -22,6 +22,12 @@ class UserPolicy < ApplicationPolicy
 
   def discover?
     user == current_user   
+  end
+
+  def liked?
+    user == current_user ||
+    !user.private? ||
+    user.followers.include?(current_user)  
   end
 
 end

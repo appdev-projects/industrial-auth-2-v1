@@ -1,6 +1,8 @@
 class FollowRequestsController < ApplicationController
   before_action :set_follow_request, only: %i[ show edit update destroy ]
 
+  skip_before_action :verify_authorized, except: [:destroy, :edit, :update]
+
   # GET /follow_requests or /follow_requests.json
   def index
     @follow_requests = FollowRequest.all
@@ -17,6 +19,7 @@ class FollowRequestsController < ApplicationController
 
   # GET /follow_requests/1/edit
   def edit
+    authorize 
   end
 
   # POST /follow_requests or /follow_requests.json

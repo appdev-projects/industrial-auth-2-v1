@@ -16,4 +16,12 @@ class UserPolicy < ApplicationPolicy
    
   end
 
+  def feed?
+    user == current_user   
+  end
+
+  def discover?
+    user == current_user   
+  end
+
 end

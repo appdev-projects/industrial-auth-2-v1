@@ -1,6 +1,5 @@
 class LikesController < ApplicationController
   before_action :set_like, only: %i[ show edit update destroy ]
-  after_action :verify_authorized
 
   # GET /likes or /likes.json
   def index
@@ -9,6 +8,7 @@ class LikesController < ApplicationController
 
   # GET /likes/1 or /likes/1.json
   def show
+    authorize @like
   end
 
   # GET /likes/new
@@ -18,6 +18,7 @@ class LikesController < ApplicationController
 
   # GET /likes/1/edit
   def edit
+    authorize @like
   end
 
   # POST /likes or /likes.json
@@ -37,6 +38,7 @@ class LikesController < ApplicationController
 
   # PATCH/PUT /likes/1 or /likes/1.json
   def update
+    authorize @like
     respond_to do |format|
       if @like.update(like_params)
         format.html { redirect_to @like, notice: "Like was successfully updated." }
@@ -50,6 +52,7 @@ class LikesController < ApplicationController
 
   # DELETE /likes/1 or /likes/1.json
   def destroy
+    authorize @like
     @like.destroy
     respond_to do |format|
       format.html { redirect_to likes_url, notice: "Like was successfully destroyed." }

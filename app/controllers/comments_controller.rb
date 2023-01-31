@@ -3,6 +3,8 @@ class CommentsController < ApplicationController
 
   before_action :ensure_current_user_is_owner, only: [:destroy, :update, :edit]
 
+  after_action :verify_authorized
+
   # GET /comments or /comments.json
   def index
     @comments = Comment.all

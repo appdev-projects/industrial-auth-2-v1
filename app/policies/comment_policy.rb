@@ -6,8 +6,16 @@ class CommentPolicy < ApplicationPolicy
     @comment = comment
   end
 
-    def create?
-    user == comment.owner ||       !comment.owner.private? ||      comment.owner.followers.include?(user)
+  def create?
+    #photo = Photo.find(params.fetch(:comment).fetch(:photo_id))
+    #user == photo.owner || 
+     # !photo.owner.private? ||
+      #photo.owner.followers.include?(user)
+
+    user == comment.owner || 
+     !comment.owner.private? ||
+      comment.owner.followers.include?(user)
+      
   end
 
   def edit?

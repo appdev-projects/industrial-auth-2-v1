@@ -15,4 +15,18 @@ class PhotoPolicy < ApplicationPolicy
       photo.owner.followers.include?(user)
   end
 
+  #before_action :ensure_current_user_is_owner, only: [:destroy, :update, :edit]
+
+  def edit?
+    user == photo.owner
+  end
+
+  def update?
+    user == photo.owner
+  end
+
+  def destroy?
+    user == photo.owner
+  end
+
 end

@@ -21,9 +21,8 @@ class LikesController < ApplicationController
 
   # POST /likes or /likes.json
   def create
-    authorize @like
-
     @like = Like.new(like_params)
+    authorize @like
 
     respond_to do |format|
       if @like.save

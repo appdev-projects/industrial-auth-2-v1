@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    #authorize @user
+    #skip because we are always showing the top part of the profile
     skip_authorization
   end
 

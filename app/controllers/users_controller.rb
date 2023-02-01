@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[ show liked feed discover ]
 
   #before_action :must_be_owner_to_view, only: %i[ feed discover ]
+  skip_after_action :verify_authorized, only: [:show]
 
   def feed
     authorize @user
@@ -13,7 +14,7 @@ class UsersController < ApplicationController
 
   def show
     #skip because we are always showing the top part of the profile
-    skip_authorization
+    #skip_authorization
   end
 
   def liked

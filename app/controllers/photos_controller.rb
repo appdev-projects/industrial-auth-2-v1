@@ -3,6 +3,7 @@ class PhotosController < ApplicationController
   
   before_action :ensure_current_user_is_owner, only: [:destroy, :update, :edit]
 
+
   # GET /photos or /photos.json
   def index
     @photos = Photo.all
@@ -10,6 +11,7 @@ class PhotosController < ApplicationController
 
   # GET /photos/1 or /photos/1.json
   def show
+    authorize @photo
   end
 
   # GET /photos/new
@@ -19,6 +21,7 @@ class PhotosController < ApplicationController
 
   # GET /photos/1/edit
   def edit
+    authorize @photo
   end
 
   # POST /photos or /photos.json
@@ -39,6 +42,7 @@ class PhotosController < ApplicationController
 
   # PATCH/PUT /photos/1 or /photos/1.json
   def update
+    authorize @photo
     respond_to do |format|
       if @photo.update(photo_params)
         format.html { redirect_to @photo, notice: "Photo was successfully updated." }
@@ -54,6 +58,7 @@ class PhotosController < ApplicationController
   
 
   def destroy
+    authorize @photo
     @photo.destroy
 
     respond_to do |format|
@@ -77,5 +82,5 @@ class PhotosController < ApplicationController
     # Only allow a list of trusted parameters through.
     def photo_params
       params.require(:photo).permit(:image, :comments_count, :likes_count, :caption, :owner_id)
-    end
+    end  
 end

@@ -1,6 +1,8 @@
 class LikesController < ApplicationController
   before_action :set_like, only: %i[ show edit update destroy ]
 
+  skip_before_action :verify_authorized, except: [:destroy, :create]
+
   # GET /likes or /likes.json
   def index
     @likes = Like.all
@@ -21,6 +23,8 @@ class LikesController < ApplicationController
 
   # POST /likes or /likes.json
   def create
+    authorize @like
+
     @like = Like.new(like_params)
 
     respond_to do |format|
@@ -49,6 +53,8 @@ class LikesController < ApplicationController
 
   # DELETE /likes/1 or /likes/1.json
   def destroy
+    authorize @like
+    
     @like.destroy
     respond_to do |format|
       format.html { redirect_to likes_url, notice: "Like was successfully destroyed." }

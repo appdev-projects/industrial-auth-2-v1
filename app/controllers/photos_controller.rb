@@ -2,6 +2,7 @@ class PhotosController < ApplicationController
   before_action :set_photo, only: %i[ show edit update destroy ]
   
   before_action :ensure_current_user_is_owner, only: [:destroy, :update, :edit]
+  skip_before_action :verify_authorized, except: [:show]
 
   # GET /photos or /photos.json
   def index
@@ -10,6 +11,10 @@ class PhotosController < ApplicationController
 
   # GET /photos/1 or /photos/1.json
   def show
+    #unless PhotoPolicy.new(current_user, @photo).show?
+      #raise Pundit::NotAuthorizedError, "not allowed"
+    #end
+    authorize @photo
   end
 
   # GET /photos/new
@@ -51,8 +56,6 @@ class PhotosController < ApplicationController
   end
 
   # DELETE /photos/1 or /photos/1.json
-  
-
   def destroy
     @photo.destroy
 

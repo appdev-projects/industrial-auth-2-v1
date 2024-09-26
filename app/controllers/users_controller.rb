@@ -3,6 +3,8 @@ class UsersController < ApplicationController
 
   before_action :must_be_owner_to_view, only: %i[ feed discover ]
 
+  skip_before_action :verify_authorized
+
   private
 
     def set_user
